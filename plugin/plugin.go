@@ -39,7 +39,7 @@ func (p *plug) Name() string {
 
 func (p *plug) Init(ctx context.Context, cfg *viper.Viper, args []string) error {
 	l := logr.FromContextOrDiscard(ctx)
-	l.Info("my flag value is: ", cfg.GetString("my-flag"))
+	l.Info("logging the value of my-flag", "value", cfg.GetString("my-flag"))
 	l.Info("plugin initialization called")
 	return nil
 }
