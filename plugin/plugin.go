@@ -2,12 +2,14 @@ package plugin
 
 import (
 	"context"
+	"strings"
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/go-logr/logr"
 	"github.com/opdev/knex/plugin/v0"
 	"github.com/opdev/knex/types"
 	"github.com/opdev/plugin-template/internal/flags"
+	"github.com/redhat-openshift-ecosystem/openshift-preflight/artifacts"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
@@ -56,6 +58,11 @@ func (p *plug) Version() semver.Version {
 func (p *plug) ExecuteChecks(ctx context.Context) error {
 	l := logr.FromContextOrDiscard(ctx)
 	l.Info("Execute Checks Called")
+	a := artifacts.WriterFromContext(ctx)
+	_, err := a.WriteFile("example-plugin-artifacts.txt", strings.NewReader("Hello, World!"))
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
