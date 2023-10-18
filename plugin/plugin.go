@@ -46,7 +46,8 @@ func (p *plug) Init(ctx context.Context, cfg *viper.Viper, args []string) error 
 	return nil
 }
 
-func (p *plug) BindFlags(flagset *pflag.FlagSet) *pflag.FlagSet {
+func (p *plug) Flags() *pflag.FlagSet {
+	flagset := pflag.NewFlagSet("plugin-template", pflag.ContinueOnError)
 	flags.BindTo(flagset)
 	return flagset
 }
